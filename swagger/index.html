@@ -73,13 +73,12 @@
 window.onload = function() {
   
   var spec =
-
-{
+  {
   "swagger": "2.0",
   "info": {
-    "description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+    "description": "This is the specification for the Shareable Apps Api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this specificaiton, you can use the api key `special-key` to test the authorization     filters.",
     "version": "1.0.0",
-    "title": "Swagger Petstore",
+    "title": "Shareable Apps API",
     "termsOfService": "http://swagger.io/terms/",
     "contact": {
       "email": "apiteam@swagger.io"
@@ -102,7 +101,7 @@ window.onload = function() {
     },
     {
       "name": "org",
-      "description": "Access to Petstore orders"
+      "description": "Access to organisation object."
     },
     {
       "name": "app",
@@ -116,131 +115,57 @@ window.onload = function() {
   "schemes": [
     "http"
   ],
-   "paths": {
-    "/aggregator": {
+  "securityDefinitions": {
+    "APIKey": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  },
+  "security": [
+    {
+      "APIKey": []
+    }
+  ],
+  "paths": {
+    "/aggregator/createOrgAndApp": {
       "post": {
         "tags": [
           "aggregator"
         ],
         "summary": "Add a new pet to the store",
         "description": "",
-        "operationId": "addPet",
         "consumes": [
-          "application/json",
-          "application/xml"
-        ],
-        "produces": [
-          "application/xml",
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Pet object that needs to be added to the store",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Pet"
-            }
-          }
+        "produces": [
+          "application/json"
         ],
         "responses": {
           "405": {
             "description": "Invalid input"
           }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
+        }
       }
     },
-   "/aggregator/createOrgAndApp": {
-      "post": {
-        "tags": [
-          "aggregator"
-        ],
-        "summary": "Add a new pet to the store",
-        "description": "",
-        "operationId": "addPet",
-        "consumes": [
-          "application/json",
-          "application/xml"
-        ],
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Pet object that needs to be added to the store",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Pet"
-            }
-          }
-        ],
-        "responses": {
-          "405": {
-            "description": "Invalid input"
-          }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
-      }
-    },
-   "/org": {
-      "post": {
+    "/org": {
+      "get": {
         "tags": [
           "org"
         ],
         "summary": "Add a new pet to the store",
         "description": "",
-        "operationId": "addPet",
         "consumes": [
-          "application/json",
-          "application/xml"
-        ],
-        "produces": [
-          "application/xml",
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Pet object that needs to be added to the store",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Pet"
-            }
-          }
+        "produces": [
+          "application/json"
         ],
         "responses": {
           "405": {
-            "description": "Invalid input"
+            "description": "test"
           }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
+        }
       }
     },
     "/org/{orgId}": {
@@ -248,49 +173,81 @@ window.onload = function() {
         "tags": [
           "org"
         ],
-        "summary": "Add a new pet to the store",
-        "description": "",
-        "operationId": "addPet",
+        "summary": "Get Org By Id",
         "consumes": [
-          "application/json",
-          "application/xml"
+          "application/json"
         ],
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
-            "in": "body",
-            "name": "body",
-            "description": "Pet object that needs to be added to the store",
+            "in": "path",
+            "name": "orgId",
+            "type": "integer",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/Pet"
-            }
+            "description": "Numeric ID of the user to get."
           }
         ],
         "responses": {
           "405": {
             "description": "Invalid input"
           }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
+        }
       },
       "post": {
         "tags": [
           "org"
         ],
+        "summary": "Post Org By Id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orgId",
+            "type": "integer",
+            "required": true,
+            "description": "Numeric ID of the user to get."
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/app": {
+      "get": {
+        "tags": [
+          "app"
+        ],
         "summary": "Add a new pet to the store",
         "description": "",
-        "operationId": "addPet",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "405": {
+            "description": "test"
+          }
+        }
+      }
+    },
+    "/app/{appId}": {
+      "get": {
+        "tags": [
+          "app"
+        ],
+        "summary": "Get Org By Id",
         "consumes": [
           "application/json",
           "application/xml"
@@ -301,32 +258,48 @@ window.onload = function() {
         ],
         "parameters": [
           {
-            "in": "body",
-            "name": "body",
-            "description": "Pet object that needs to be added to the store",
+            "in": "path",
+            "name": "appId",
+            "type": "integer",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/Pet"
-            }
+            "description": "Numeric ID of the user to get."
           }
         ],
         "responses": {
           "405": {
             "description": "Invalid input"
           }
-        },
-        "security": [
+        }
+      },
+      "post": {
+        "tags": [
+          "app"
+        ],
+        "summary": "Post Org By Id",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
           {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
+            "in": "path",
+            "name": "appId",
+            "type": "integer",
+            "required": true,
+            "description": "Numeric ID of the user to get."
           }
-        ]
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
       }
-    },
+    }
   }
-  }
+};
 
   // Build a system
   const ui = SwaggerUIBundle({
