@@ -1,0 +1,148 @@
+swagger: '2.0'
+info:
+  description: 'This is the specification for the Shareable Apps Api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this specificaiton, you can use the api key `special-key` to test the authorization     filters.'
+  version: 1.0.0
+  title: Shareable Apps API
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: shareableapps.com
+basePath: /v2
+tags:
+  - name: aggregator
+    description: 'Combination of '
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: org
+    description: Access to organisation object.
+  - name: app
+    description: Operations about user
+    externalDocs:
+      description: Find out more about our store
+      url: 'http://swagger.io'
+schemes:
+  - http
+securityDefinitions:
+   # X-API-Key: abcdef12345
+   APIKey:
+     type: apiKey
+     in: header
+     name: Authorization
+security:
+  - APIKey: []
+paths:
+  /aggregator/createOrgAndApp:
+    post:
+      tags:
+        - aggregator
+      summary: Add a new pet to the store
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '405':
+          description: Invalid input
+  /org:
+    get:
+      tags:
+        - org
+      summary: Add a new pet to the store
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '405':
+          description: "test"
+  /org/{orgId}:
+    get:
+      tags:
+        - org
+      summary: Get Org By Id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: orgId
+          type: integer
+          required: true
+          description: Numeric ID of the user to get.
+      responses:
+        '405':
+          description: Invalid input
+    post:
+      tags:
+        - org
+      summary: Post Org By Id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: orgId
+          type: integer
+          required: true
+          description: Numeric ID of the user to get.
+      responses:
+        '405':
+          description: Invalid input
+  /app:
+    get:
+      tags:
+        - app
+      summary: Add a new pet to the store
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '405':
+          description: "test"
+  /app/{appId}:
+    get:
+      tags:
+        - app
+      summary: Get Org By Id
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: path
+          name: appId
+          type: integer
+          required: true
+          description: Numeric ID of the user to get.
+      responses:
+        '405':
+          description: Invalid input
+    post:
+      tags:
+        - app
+      summary: Post Org By Id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: appId
+          type: integer
+          required: true
+          description: Numeric ID of the user to get.
+      responses:
+        '405':
+          description: Invalid input
