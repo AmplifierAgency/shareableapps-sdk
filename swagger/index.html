@@ -88,7 +88,7 @@ window.onload = function() {
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "shareableapps.com",
+  "host": "api.shareableapps.com",
   "basePath": "/v2",
   "tags": [
     {
@@ -112,6 +112,75 @@ window.onload = function() {
       }
     }
   ],
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "phone"
+      ],
+      "properties": {
+        "email": {"type" : "string"},
+        "firstName": {"type" : "string"},
+        "lastName": {"type" : "string"},
+        "phone": {"type" : "string"}
+      }
+    },
+    "App": {
+      "type": "object",
+      "required": [
+          "name",
+          "vanityName"
+      ],
+      "properties": {
+        "name": {"type" : "string"},
+        "keywords": {"type" : "string"},
+        "vanityName": {"type" : "string"},
+        "description": {"type" : "string"},
+        "categoryId": {"type" : "string"},
+        "templateName": {"type" : "string"},
+        "attachment": {"type" : "string"}
+      }
+    }, 
+    "Org": {
+      "type": "object",
+      "properties": {
+        "name": {"type" : "string"},
+      }
+    },    
+  "Composite": {
+      "type": "object",
+      "required": [
+          "orgName",
+          "email",
+          "postCode",
+          "countryCode",
+          "phone",
+          "city",
+          "address1",
+          "address2"
+      ],
+      "properties": {
+        "orgName": {"type" : "string"},
+        "email": {"type" : "string"},
+        "postCode": {"type" : "string"},
+        "countryCode": {"type" : "string"},
+        "phone": {"type" : "string"},
+        "city": {"type" : "string"},
+        "address1": {"type" : "string"},
+        "address2": {"type" : "string"},
+        "apps": {
+          "type": "array",
+          "items": {
+            "$ref": '#/definitions/App'
+          },
+        },
+        "user": {"$ref": '#/definitions/User'},
+      }
+    }
+  },
   "schemes": [
     "http"
   ],
@@ -133,13 +202,23 @@ window.onload = function() {
         "tags": [
           "aggregator"
         ],
-        "summary": "Add a new pet to the store",
+        "summary": "Create Organisation and App",
         "description": "",
         "consumes": [
           "application/json"
         ],
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "in" : "body",
+            "name": "Composite",
+            "description": "Create Organisation, App and User",
+            "schema": {
+              "$ref": "#/definitions/Composite"
+            }
+          }
         ],
         "responses": {
           "405": {
