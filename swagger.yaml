@@ -1,120 +1,233 @@
 swagger: '2.0'
 info:
-  version: '1.0'
-  title: "Shareableapps API"
-  description: Polls is a simple API allowing consumers to view polls and vote in them.
+  description: >-
+    This is the specification for the Shareable Apps Api
+    [http://swagger.io](http://swagger.io) or on [irc.freenode.net,
+    #swagger](http://swagger.io/irc/).      For this specificaiton, you can use
+    the api key `special-key` to test the authorization     filters.
+  version: 1.0.0
+  title: Shareable Apps API
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
   license:
-    name: MIT
-    url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
-host: polls.apiblueprint.org
-basePath: /
-schemes:
-- http
-consumes:
-- application/json
-produces:
-- application/json
-paths:
-  /questions:
-    x-summary: Questions Collection
-    get:
-      summary: List All Questions
-      responses:
-        200:
-          description: Successful Response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Question'
-          examples:
-            application/json:
-              - question: Favourite programming language?
-                published_at: '2015-08-05T08:40:51.620Z'
-                choices:
-                  - choice: Swift
-                    votes: 2048
-                  - choice: Python
-                    votes: 1024
-                  - choice: Objective-C
-                    votes: 512
-                  - choice: Ruby
-                    votes: 256
-    post:
-      description: >-
-        You may create your own question using this action. It takes a JSON
-        object containing a question and a collection of answers in the
-        form of choices.
-      summary: Create a New Question
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/QuestionRequest'
-      responses:
-        201:
-          description: ''
-          schema:
-            $ref: '#/definitions/Question'
-          examples:
-            application/json:
-                question: Favourite programming language?
-                published_at: '2015-08-05T08:40:51.620Z'
-                choices:
-                  - choice: Swift
-                    votes: 0
-                  - choice: Python
-                    votes: 0
-                  - choice: Objective-C
-                    votes: 0
-                  - choice: Ruby
-                    votes: 0
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: shareableapps.com
+basePath: /v2
+tags:
+  - name: aggregator
+    description: 'Combination of '
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: org
+    description: Access to organisation object.
+  - name: app
+    description: Operations about user
+    externalDocs:
+      description: Find out more about our store
+      url: 'http://swagger.io'
 definitions:
-  Question:
-    title: Question
+  User:
+    type: object
+    required:
+      - email
+      - firstName
+      - lastName
+      - phone
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      phone:
+        type: string
+  App:
+    type: object
+    required:
+      - name
+      - vanityName
+    properties:
+      name:
+        type: string
+      keywords:
+        type: string
+      vanityName:
+        type: string
+      description:
+        type: string
+      categoryId:
+        type: string
+      templateName:
+        type: string
+      attachment:
+        type: string
+  Org:
     type: object
     properties:
-      question:
+      name:
         type: string
-      published_at:
+  Composite:
+    type: object
+    required:
+      - orgName
+      - email
+      - postCode
+      - countryCode
+      - phone
+      - city
+      - address1
+      - address2
+    properties:
+      orgName:
         type: string
-      choices:
+      email:
+        type: string
+      postCode:
+        type: string
+      countryCode:
+        type: string
+      phone:
+        type: string
+      city:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      apps:
         type: array
         items:
-          $ref: '#/definitions/Choice'
-    required:
-      - question
-      - published_at
-      - choices
-  Choice:
-    title: Choice
-    type: object
-    properties:
-      votes:
-        type: integer
-        format: int32
-      choice:
-        type: string
-    required:
-      - votes
-      - choice
-  QuestionRequest:
-    title: Question Request
-    type: object
-    properties:
-      question:
-        type: string
-      choices:
-        type: array
-        items:
-          type: string
-    required:
-      - question
-      - choices
-    example:
-      question: Favourite programming language?
-      choices:
-        - Swift
-        - Python
-        - Objective-C
-        - Ruby
+          $ref: '#/definitions/App'
+      user:
+        $ref: '#/definitions/User'
+schemes:
+  - http
+securityDefinitions:
+  APIKey:
+    type: apiKey
+    in: header
+    name: Authorization
+security:
+  - APIKey: []
+paths:
+  /aggregator/createOrgAndApp:
+    post:
+      tags:
+        - aggregator
+      summary: Create Organisation and App
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: Composite
+          description: 'Create Organisation, App and User'
+          schema:
+            $ref: '#/definitions/Composite'
+      responses:
+        '405':
+          description: Invalid input
+  /org:
+    get:
+      tags:
+        - org
+      summary: Add a new pet to the store
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '405':
+          description: test
+  '/org/{orgId}':
+    get:
+      tags:
+        - org
+      summary: Get Org By Id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: orgId
+          type: integer
+          required: true
+          description: Numeric ID of the user to get.
+      responses:
+        '405':
+          description: Invalid input
+    post:
+      tags:
+        - org
+      summary: Post Org By Id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: orgId
+          type: integer
+          required: true
+          description: Numeric ID of the user to get.
+      responses:
+        '405':
+          description: Invalid input
+  /app:
+    get:
+      tags:
+        - app
+      summary: Add a new pet to the store
+      description: ''
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '405':
+          description: test
+  '/app/{appId}':
+    get:
+      tags:
+        - app
+      summary: Get Org By Id
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: path
+          name: appId
+          type: integer
+          required: true
+          description: Numeric ID of the user to get.
+      responses:
+        '405':
+          description: Invalid input
+    post:
+      tags:
+        - app
+      summary: Post Org By Id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: appId
+          type: integer
+          required: true
+          description: Numeric ID of the user to get.
+      responses:
+        '405':
+          description: Invalid input
