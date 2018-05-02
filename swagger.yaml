@@ -82,9 +82,6 @@ definitions:
       orgName:
         description: Organisation Name
         type: string
-        example: 'Amplifier Agency'
-        x-example: 'Amplifier agency'
-        x-value: 'test'
       email:
         type: string
         format: email
@@ -131,6 +128,15 @@ paths:
           name: Composite
           description: 'Create Organisation, App and User'
           schema:
+            example: 
+              orgName: Amplifier Agency
+              email: api@amplifieragency.com
+              postCode: '3000'
+              countryCode: '61'
+              phone: '6142328870'
+              city: Melbourne
+              address1: 55 Collins Street
+              address2: Level 1
             $ref: '#/definitions/Composite'
       responses:
         '405':
@@ -177,6 +183,8 @@ paths:
           required: true
           description: Numeric ID of the user to get.
       responses:
+        '200':
+          description: Success
         '405':
           description: Invalid input
     post:
@@ -194,6 +202,8 @@ paths:
           required: true
           description: Numeric ID of the user to get.
       responses:
+        '200':
+          description: Success
         '405':
           description: Invalid input
   /app:
@@ -227,6 +237,8 @@ paths:
           required: true
           description: Numeric ID of the user to get.
       responses:
+        '200':
+          description: Success
         '405':
           description: Invalid input
     post:
