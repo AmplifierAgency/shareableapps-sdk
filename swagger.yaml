@@ -83,19 +83,26 @@ definitions:
         description: Organisation Name
         type: string
       email:
+        description: Organisation Email address
         type: string
         format: email
       postCode:
+        description: Organisation Post code
         type: string
       countryCode:
+        description: Organisation Country Code
         type: string
       phone:
+        description: Organisation Phone
         type: string
       city:
+        description: Organisation City
         type: string
       address1:
+        description: Organisation Address Line 1
         type: string
       address2:
+        description: Organisation Address Line 2
         type: string
       apps:
         type: array
@@ -137,6 +144,19 @@ paths:
               city: Melbourne
               address1: 55 Collins Street
               address2: Level 1
+              apps: 
+                - name : test 
+                  keywords: Tag1
+                  vanityName: appName
+                  description: Tag Description
+                  categoryId: 6
+                  templateName: default
+                  attachment: base64 string...
+              user: 
+                - firstName : test 
+                  lastName: Tag1
+                  email: default@test.comM
+                  phone: '61423288275'
             $ref: '#/definitions/Composite'
       responses:
         '405':
