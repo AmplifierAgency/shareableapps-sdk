@@ -2,9 +2,6 @@ swagger: '2.0'
 info:
   description: >-
     This is the specification for the Shareable Apps Api
-    [http://swagger.io](http://swagger.io) or on [irc.freenode.net,
-    #swagger](http://swagger.io/irc/).      For this specificaiton, you can use
-    the api key `special-key` to test the authorization     filters.
   version: 1.0.0
   title: Shareable Apps API
   termsOfService: 'http://swagger.io/terms/'
@@ -83,6 +80,10 @@ definitions:
       - address2
     properties:
       orgName:
+        description: Organisation Name
+        x-example: Test Organisation
+        example: Test
+        x-summary: Testtest
         type: string
       email:
         type: string
@@ -133,6 +134,19 @@ paths:
       responses:
         '405':
           description: Invalid input
+          examples:
+            application/json:
+              - question: "Favourite programming language?"
+                published_at: "2015-08-05T08:40:51.620Z"
+                choices:
+                  - choice: "Swift"
+                    votes: 2048
+                  - choice: "Python"
+                    votes: 1024
+                  - choice: "Objective-C"
+                    votes: 512
+                  - choice: "Ruby"
+                    votes: 256
   /org:
     get:
       tags:
