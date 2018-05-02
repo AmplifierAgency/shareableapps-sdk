@@ -81,12 +81,13 @@ definitions:
     properties:
       orgName:
         description: Organisation Name
-        x-example: Test Organisation
-        example: Test
-        x-summary: Testtest
         type: string
+        example: 'Amplifier Agency'
+        x-example: 'Amplifier agency'
+        x-value: 'test'
       email:
         type: string
+        format: email
       postCode:
         type: string
       countryCode:
