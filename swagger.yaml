@@ -6,25 +6,19 @@ info:
   title: Shareable Apps API
   termsOfService: 'http://swagger.io/terms/'
   contact:
-    email: apiteam@swagger.io
+    email: contact@amplifieragency.com
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-host: shareableapps.com
+host: api.shareableapps.com
 basePath: /v2
 tags:
   - name: aggregator
-    description: 'Combination of '
-    externalDocs:
-      description: Find out more
-      url: 'http://swagger.io'
+    description: 'Creates and links an Organisation, App and a default User'
   - name: org
     description: Access to organisation object.
   - name: app
-    description: Operations about user
-    externalDocs:
-      description: Find out more about our store
-      url: 'http://swagger.io'
+    description: Access to the app object.
 definitions:
   User:
     type: object
@@ -49,19 +43,26 @@ definitions:
       - vanityName
     properties:
       name:
+        description: Name of the App
         type: string
       keywords:
         type: string
       vanityName:
+        description: Vanity name. To be used for <vanityname>.shareableapps.com
         type: string
       description:
+        description: Description of App
         type: string
       categoryId:
+        description: Category ID
         type: string
       templateName:
+        description: Template name
         type: string
       attachment:
+        description: Base64 encoded App Icon Image
         type: string
+        format: byte
   Org:
     type: object
     properties:
@@ -117,6 +118,7 @@ securityDefinitions:
     type: apiKey
     in: header
     name: Authorization
+    description: 'The Apikey is used to correctly identify the correct organisation for API Calls. This key must be sent within the headers in every request to an endpoint. <br><br>nAn API Key can be created by an Admin organisation using the following url: https://shareableapps.com/admin/user/api/ <br><br>The key follows the following format `xxxxxxxxxxxxxxxxxxxx:xxxxxxxxxxxxxxxxxxxxx`<br><br>The word "apiKey" must be prefixed against the key inside the header. <br>Example `Authorization: apiKey xxxxxxxxxxxxxxxxxxxx:xxxxxxxxxxxxxxxxxxxxx`'
 security:
   - APIKey: []
 paths:
@@ -149,7 +151,7 @@ paths:
                   keywords: Tag1
                   vanityName: appName
                   description: Tag Description
-                  categoryId: 6
+                  categoryId: "6"
                   templateName: default
                   attachment: base64 string...
               user: 
@@ -178,7 +180,7 @@ paths:
     get:
       tags:
         - org
-      summary: Add a new pet to the store
+      summary: List all organisations
       description: ''
       consumes:
         - application/json
