@@ -1,10 +1,10 @@
 swagger: '2.0'
 info:
   description: >-
-    This is the specification for the Shareable Apps Api
+    This is the API specification for the Shareable Apps Api
   version: 1.0.0
   title: Shareable Apps API
-  termsOfService: 'http://swagger.io/terms/'
+  termsOfService: 'http://amplifieragency.com/terms/'
   contact:
     email: contact@amplifieragency.com
   license:
@@ -118,16 +118,16 @@ securityDefinitions:
     type: apiKey
     in: header
     name: Authorization
-    description: 'The Apikey is used to correctly identify the correct organisation for API Calls. This key must be sent within the headers in every request to an endpoint. <br><br>nAn API Key can be created by an Admin organisation using the following url: https://shareableapps.com/admin/user/api/ <br><br>The key follows the following format `xxxxxxxxxxxxxxxxxxxx:xxxxxxxxxxxxxxxxxxxxx`<br><br>The word "apiKey" must be prefixed against the key inside the header. <br>Example `Authorization: apiKey xxxxxxxxxxxxxxxxxxxx:xxxxxxxxxxxxxxxxxxxxx`'
+    description: 'The Apikey is used to correctly identify the correct organisation for API Calls. This key must be sent within the headers in every request to an endpoint. <br><br>An API Key can be created by an Admin organisation using the following url: https://shareableapps.com/admin/user/api/ <br><br>The key follows the following format `xxxxxxxxxxxxxxxxxxxx:xxxxxxxxxxxxxxxxxxxxx`<br><br>The word "apiKey" must be prefixed against the key inside the header. <br>Example `Authorization: apiKey xxxxxxxxxxxxxxxxxxxx:xxxxxxxxxxxxxxxxxxxxx`'
 security:
   - APIKey: []
 paths:
   /aggregator/createOrgAndApp:
     post:
       tags:
-        - aggregator
+        - Aggregate Functions
       summary: Create Organisation and App
-      description: ''
+      description: 'Creates and links an organisation, an app and a default user.'
       consumes:
         - application/json
       produces:
@@ -179,8 +179,8 @@ paths:
   /org:
     get:
       tags:
-        - org
-      summary: List all organisations
+        - Organisation
+      summary: Fetch all organisations
       description: ''
       consumes:
         - application/json
@@ -192,8 +192,8 @@ paths:
   '/org/{orgId}':
     get:
       tags:
-        - org
-      summary: Get Org By Id
+        - Organisation
+      summary: Fetch Organisation
       consumes:
         - application/json
       produces:
@@ -211,8 +211,8 @@ paths:
           description: Invalid input
     post:
       tags:
-        - org
-      summary: Post Org By Id
+        - Organisation
+      summary: Update Organisation
       consumes:
         - application/json
       produces:
@@ -231,8 +231,8 @@ paths:
   /app:
     get:
       tags:
-        - app
-      summary: Add a new pet to the store
+        - Application
+      summary: List all applications
       description: ''
       consumes:
         - application/json
@@ -244,8 +244,8 @@ paths:
   '/app/{appId}':
     get:
       tags:
-        - app
-      summary: Get Org By Id
+        - Application
+      summary: Fetch application by ID
       consumes:
         - application/json
         - application/xml
@@ -265,8 +265,8 @@ paths:
           description: Invalid input
     post:
       tags:
-        - app
-      summary: Post Org By Id
+        - Application
+      summary: Update application by ID
       consumes:
         - application/json
       produces:
