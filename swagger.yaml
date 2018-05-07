@@ -27,6 +27,7 @@ definitions:
       - firstName
       - lastName
       - phone
+      - countryId
     properties:
       email:
         type: string
@@ -36,6 +37,8 @@ definitions:
         type: string
       phone:
         type: string
+      countryId:
+        type: integer
   App:
     type: object
     required:
@@ -54,7 +57,64 @@ definitions:
         description: Description of App
         type: string
       categoryId:
-        description: Category ID
+        description: >
+            Category id 
+              * 27 - Agriculture & Forestry
+              * 28 - Architecture
+              * 1 - Arts & Entertainment
+              * 2 - Automotive Industry
+              * 29 - Baby & Maternity
+              * 7 - Banking & Finance
+              * 30 - Bars & Clubs
+              * 3 - Beauty & Cosmetics
+              * 4 - Books & Literature
+              * 5 - Business and Industrial Market
+              * 56 - Charity & Philanthropy
+              * 31 - Child Care
+              * 32 - Clerical & Administrative Jobs
+              * 6 - Computers & Electronics
+              * 33 - Construction & Maintenance
+              * 34 - Consulting
+              * 35 - Defense & Military
+              * 36 - Design
+              * 14 - Education
+              * 37 - Energy & Utilities
+              * 38 - Fashion & Jewelry
+              * 39 - Fishing & Hunting 
+              * 40 - Fitness
+              * 8 - Food & Drink
+              * 41 - Gambling
+              * 9 - Games
+              * 15 - Government
+              * 10 - Healthcare & Medical
+              * 11 - Hobbies & Leisure
+              * 12 - Home & Garden
+              * 43 - Hotels & Accommodation
+              * 44 - Insurance
+              * 45 - Investment 
+              * 46 - Legal
+              * 47 - Manufacturing
+              * 57 - Marketing, Advertising & PR
+              * 49 - Mining
+              * 16 - News & Media
+              * 17 - Online Communities
+              * 26 - Other
+              * 18 - People and Society
+              * 19 - Pets & Animals
+              * 48 - Police & Emergency Services
+              * 20 - Real Estate
+              * 50 - Recruitment & Staffing
+              * 21 - Reference
+              * 51 - Restaurants & Cafes
+              * 23 - Retail
+              * 22 - Science & Research
+              * 24 - Sports & Recreation
+              * 52 - Technology & Software
+              * 13 - Telecommunications & Internet
+              * 53 - Transportation & Logisitics
+              * 25 - Travel
+              * 54 - Warehousing & Storage
+              * 55 - Wholesalers 
         type: string
       templateName:
         description: Template name
@@ -158,24 +218,20 @@ paths:
                 - firstName : test 
                   lastName: Tag1
                   email: default@test.comM
-                  phone: '61423288275'
+                  phone: '+61423288275'
+                  countryId: 61
             $ref: '#/definitions/Composite'
       responses:
-        '405':
-          description: Invalid input
+        '200':
+          description: Missing input
           examples:
             application/json:
-              - question: "Favourite programming language?"
-                published_at: "2015-08-05T08:40:51.620Z"
-                choices:
-                  - choice: "Swift"
-                    votes: 2048
-                  - choice: "Python"
-                    votes: 1024
-                  - choice: "Objective-C"
-                    votes: 512
-                  - choice: "Ruby"
-                    votes: 256
+              - message: 'missing required field: orgName:name'
+        '500':
+          description: Missing input
+          examples:
+            application/json:
+              - message: 'missing required field: orgName:name'
   /org:
     get:
       tags:
